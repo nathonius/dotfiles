@@ -102,17 +102,12 @@ if command -v espanso &> /dev/null; then
   alias espanso-edit="code \$ESPANSO_PATH/."
 fi
 
+export PATH="$HOME/.local/bin:$HOME/.fzf/bin:$PATH"
+
 # Homebrew
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-fi
-
-# fzf
-if command -v fzf &> /dev/null; then
-  gch() {
-    git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
-  }
 fi
 
 if [[ ! -f "$HOME/.antigen.zsh" ]]; then
@@ -146,10 +141,6 @@ if ! command -v oh-my-posh &> /dev/null; then
 else
   eval "$(oh-my-posh init zsh --config ~/.oh-my-posh.json)"
 fi
-
-
-export PATH="$HOME/.local/bin:$PATH"
-
 
 
 # fzf
