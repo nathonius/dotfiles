@@ -1,9 +1,8 @@
 - clean: ["~"]
 
 - link:
-    ~/.gitconfig: .gitconfig
+    ~/.gitconfig: gitconfig
     ~/.zshrc: .zshrc
-    ~/.p10k.zsh: .p10k.zsh
     ~/.better-commits.json: .better-commits.json
     ~/.wezterm.lua: .wezterm.lua
     ~/.oh-my-posh.json: .oh-my-posh.json

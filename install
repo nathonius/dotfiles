@@ -1,17 +1,63 @@
 #!/usr/bin/env bash
 
-PLATFORM=$(uname)
+EMAIL="nathan@nathan-smith.org"
+PLATFORM=""
+DOMAIN=""
+UBUNTU=false
+WSL=false
+read -n 1 -p "Installing for (1) Linux (Ubuntu), (2) Linux, (3) MacOS? " osAns;
+echo ""
+read -n 1 -p "Installing for (1) personal or (2) work? " domainAns;
+echo ""
 
-if [[ "${PLATFORM}" == "Darwin" ]] && ! command -v brew &> /dev/null; then
+case $osAns in
+  1)
+    PLATFORM="linux"
+    UBUNTU=true;;
+  2)
+    PLATFORM="linux";;
+  3)
+    PLATFORM="macos";;
+  *)
+    echo "Select a valid OS."
+    exit 1;;
+esac
+
+case $domainAns in
+  1)
+    DOMAIN="personal";;
+  2)
+    DOMAIN="work";;
+  *)
+    echo "Select personal or work for domain"
+    exit 1;;
+esac
+
+if [[ "${DOMAIN}" == "work" ]]; then
+  read -p "What email address should be used for git? " workEmail;
+  EMAIL=$workEmail
+fi
+
+if [[ "${PLATFORM}" == "linux" ]]; then
+  read -n 1 -p "Is this a WSL linux installation? (y/N) " wslAns;
+  echo ""
+  case wslAns in
+    y|Y)
+      WSL=true;;
+  esac
+fi
+
+# Check for homebrew
+if [[ "${PLATFORM}" == "macos" ]] && ! command -v brew &> /dev/null; then
   echo "install homebrew with the following /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
   exit 1
 fi
 
+# Check for zsh
 if ! command -v zsh &> /dev/null; then
   echo "zsh could not be found, install it first"
   exit 1
 fi
-
 
 set -e
 
@@ -35,13 +81,23 @@ ENV_CONFIG="install.conf.yaml"
   -c "${ENV_CONFIG}" \
   "${@}"
 
+echo "Setting git email to ${EMAIL}."
+git config --global user.email "${EMAIL}"
+
 echo "Recommend running the following commands:"
 echo "scripts/wezterm.sh"
-if [[ "${PLATFORM}" == "Darwin" ]]; then
-  echo "brew install autojump fd fzf 1password-cli wezterm"
+if [[ "${PLATFORM}" == "macos" ]]; then
+  echo "brew install autojump fd fzf 1password-cli wezterm jandedobbeleer/oh-my-posh/oh-my-posh"
   echo "brew install --cask font-meslo-lg-nerd-font"
 fi
 
-if [[ ! "${PLATFORM}" == "Darwin" ]]; then
-  echo "Recommend installing the following packages: fzf, autojump, wezterm"
+if [[ ! "${PLATFORM}" == "macos" ]]; then
+  echo "curl -s https://ohmyposh.dev/install.sh | bash -s"
+  echo "Recommend installing the following packages: fzf, fd, autojump, wezterm"
 fi
+
+if [[ UBUNTU == true ]]; then
+  echo "Recommend installing nala"
+fi
+
+echo "Recommend installing the following node packages: typescript, @angular/cli, lorem-ipsum-cli, better-commits"

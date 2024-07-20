@@ -11,7 +11,7 @@
 	rollback = "!git reset @~${1:-1} #"
 	rb = "!git branch -r --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' --color=always | grep ${1:-'Nathan Smith'} | head #"
 [user]
-	name = Nathan Smith
+	name = "Nathan Smith"
 	email = nathan@nathan-smith.org
 [rerere]
 	enabled = true
