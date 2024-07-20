@@ -1,0 +1,71 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Print the current date
+  - triggers: [":date", ":now"]
+    replace: "{{datetime}}"
+    label: "Today, YYYY-MM-DD"
+    vars:
+      - name: datetime
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # Print the current date
+  - trigger: ":fulldate"
+    replace: "{{datetime}}"
+    label: "Today, full date"
+    vars:
+      - name: datetime
+        type: date
+        params:
+          format: "%b %d, %Y"
+
+  # Print the current date
+  - trigger: ":datetime"
+    replace: "{{datetime}}"
+    label: "Today, full date and time"
+    vars:
+      - name: datetime
+        type: date
+        params:
+          format: "%b %d, %Y %I:%M %p"
+
+  # Print the output of a shell command
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+
+  # Print your IP address (wsl)
+  - trigger: ":ip"
+    replace: "{{output}}"
+    label: "IPv4 Address (WSL)"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl 'https://api.ipify.org'"
+          shell: wsl
+
+  # Print your IP address (auto)
+  - trigger: ":ip"
+    replace: "{{output}}"
+    label: "IPv4 Address"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl 'https://api.ipify.org'"
+    
+  # And much more! For more information, visit the docs: https://espanso.org/docs/

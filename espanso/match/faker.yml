@@ -1,0 +1,38 @@
+matches:
+  - trigger: ":faker"
+    replace: "{{output}}"
+    vars:
+      - name: module
+        type: choice
+        params:
+          values:
+            - label: "First Name"
+              id: "first_name"
+            - label: "Last Name"
+              id: "last_name"
+            - label: "Company"
+              id: "company"
+            - label: "Phone Number"
+              id: "phone_number"
+            - label: "File Name"
+              id: "file_name"
+            - label: "Street Address"
+              id: "address"
+            - label: "City"
+              id: "city"
+            - label: "VIN"
+              id: "vin"
+            - label: "SSN"
+              id: "ssn"
+            - label: "Catch-Phrase"
+              id: "catch_phrase"
+            - label: "Corpo BS"
+              id: "bs"
+            - label: "UUID"
+              id: "uuid4"
+            - label: "Email"
+              id: "email"
+      - name: output
+        type: shell
+        params:
+          cmd: 'pyenv exec python "$CONFIG/scripts/fake.py"'

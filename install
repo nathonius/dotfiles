@@ -91,6 +91,8 @@ if [[ "${PLATFORM}" == "macos" ]]; then
   echo "brew install --cask font-meslo-lg-nerd-font"
 fi
 
+echo "ln -s ${BASEDIR}/espanso \$(espanso path config)"
+
 if [[ ! "${PLATFORM}" == "macos" ]]; then
   echo "curl -s https://ohmyposh.dev/install.sh | bash -s"
   echo "Recommend installing the following packages: fzf, fd, autojump, wezterm"

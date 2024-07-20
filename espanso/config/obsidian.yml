@@ -1,0 +1,6 @@
+filter_exec: "Obsidian"
+
+extra_includes:
+  - "../match/_markdown.yml"
+  - "../match/_confluence.yml"
+  - "../match/_minimal.yml"

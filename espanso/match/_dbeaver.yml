@@ -1,0 +1,9 @@
+matches:
+  - trigger: ":division"
+    replace: "optional_parameters_json::JSONB->>'divisionDBId' = '$|$'"
+
+  - trigger: ":trigger"
+    replace: "optional_parameters_json::JSONB->>'triggering_file' ILIKE '%$|$%'"
+
+  - trigger: ":census"
+    replace: "census_record::JSONB->>'' ILIKE '%$|$%'"

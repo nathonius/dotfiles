@@ -1,0 +1,5 @@
+matches:
+  - trigger: ":elg"
+    replace: "eligibility"
+  - trigger: ":Elg"
+    replace: "Eligibility"

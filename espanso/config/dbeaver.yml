@@ -1,0 +1,4 @@
+filter_exec: "DBeaver"
+
+extra_includes:
+  - "../match/_dbeaver.yml"

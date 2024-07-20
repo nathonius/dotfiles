@@ -1,0 +1,8 @@
+matches:
+  - trigger: ":codeblock"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 $CONFIG/scripts/callout-code-block.py"

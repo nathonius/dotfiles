@@ -1,0 +1,58 @@
+matches:
+  # Commit message skeleton
+  - trigger: ":commit"
+    replace: |
+      feat():
+
+      Refs #{{clipboard}}
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
+  - trigger: ":nonnull"
+    replace: "// eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- This will not be null."
+  - trigger: ":protect"
+    replace: "// @ts-expect-error - Accessing a protected member"
+  - trigger: ":private"
+    replace: "// @ts-expect-error - Accessing a private member"
+  - trigger: ":readonly"
+    replace: "// @ts-expect-error - Writing a readonly property"
+  - trigger: ":maxlen"
+    replace: "// eslint-disable-next-line max-len"
+  - trigger: ":commits"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - python3
+            - "%CONFIG%/scripts/prdesc.py"
+  - trigger: ":prdesc"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - python3
+            - "%CONFIG%/scripts/prdesc.py"
+  - trigger: ":cwuuid"
+    replace: '"$|$" -"APIInterface"'
+  - trigger: ":cwjob"
+    replace: '"Job ID: $|$"'
+  - trigger: ":lorem"
+    label: "Paragraph"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "lorem -p"
+  - trigger: ":lorem"
+    label: "Sentence"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "lorem"
