@@ -19,7 +19,7 @@ if command -v espanso &> /dev/null; then
   alias espanso-edit="code \$ESPANSO_PATH/."
 fi
 
-export PATH="$HOME/.local/bin:$HOME/.fzf/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.fzf/bin:$HOME/.deno/bin:$PATH"
 
 # Homebrew
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
