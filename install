@@ -1,50 +1,53 @@
 #!/usr/bin/env bash
 
 EMAIL="nathan@nathan-smith.org"
-PLATFORM=""
-DOMAIN=""
+PLATFORM="linux"
+DOMAIN="personal"
 UBUNTU=false
 WSL=false
-read -n 1 -p "Installing for (1) Linux (Ubuntu), (2) Linux, (3) MacOS? " osAns;
-echo ""
-read -n 1 -p "Installing for (1) personal or (2) work? " domainAns;
-echo ""
 
-case $osAns in
-  1)
-    PLATFORM="linux"
-    UBUNTU=true;;
-  2)
-    PLATFORM="linux";;
-  3)
-    PLATFORM="macos";;
-  *)
-    echo "Select a valid OS."
-    exit 1;;
-esac
-
-case $domainAns in
-  1)
-    DOMAIN="personal";;
-  2)
-    DOMAIN="work";;
-  *)
-    echo "Select personal or work for domain"
-    exit 1;;
-esac
-
-if [[ "${DOMAIN}" == "work" ]]; then
-  read -p "What email address should be used for git? " workEmail;
-  EMAIL=$workEmail
-fi
-
-if [[ "${PLATFORM}" == "linux" ]]; then
-  read -n 1 -p "Is this a WSL linux installation? (y/N) " wslAns;
+if [[ ! "${CODESPACES}" == true ]]; then
+  read -n 1 -p "Installing for (1) Linux (Ubuntu), (2) Linux, (3) MacOS? " osAns;
   echo ""
-  case wslAns in
-    y|Y)
-      WSL=true;;
+  read -n 1 -p "Installing for (1) personal or (2) work? " domainAns;
+  echo ""
+
+  case $osAns in
+    1)
+      PLATFORM="linux"
+      UBUNTU=true;;
+    2)
+      PLATFORM="linux";;
+    3)
+      PLATFORM="macos";;
+    *)
+      echo "Select a valid OS."
+      exit 1;;
   esac
+
+  case $domainAns in
+    1)
+      DOMAIN="personal";;
+    2)
+      DOMAIN="work";;
+    *)
+      echo "Select personal or work for domain"
+      exit 1;;
+  esac
+
+  if [[ "${DOMAIN}" == "work" ]]; then
+    read -p "What email address should be used for git? " workEmail;
+    EMAIL=$workEmail
+  fi
+
+  if [[ "${PLATFORM}" == "linux" ]]; then
+    read -n 1 -p "Is this a WSL linux installation? (y/N) " wslAns;
+    echo ""
+    case $wslAns in
+      y|Y)
+        WSL=true;;
+    esac
+  fi
 fi
 
 # Check for homebrew
@@ -98,7 +101,7 @@ if [[ ! "${PLATFORM}" == "macos" ]]; then
   echo "Recommend installing the following packages: fzf, fd, autojump, wezterm"
 fi
 
-if [[ UBUNTU == true ]]; then
+if [[ $UBUNTU == true ]]; then
   echo "Recommend installing nala"
 fi
 
