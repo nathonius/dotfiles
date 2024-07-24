@@ -65,8 +65,10 @@ if command -v fzf &> /dev/null; then
 
   gch() {
     GCH_BRANCH="$(git branch --all --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))' | fzf | awk -F ' ' '{print $1}')"
-    git checkout "$GCH_BRANCH"
-    print -S "git checkout $GCH_BRANCH"
+    if [ -n "$GCH_BRANCH" ]; then
+      git checkout "$GCH_BRANCH"
+      print -S "git checkout $GCH_BRANCH"
+    fi
   }
 fi
 
