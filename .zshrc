@@ -64,7 +64,7 @@ if command -v fzf &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
   gch() {
-    GCH_BRANCH="$(git branch --all | fzf | tr -d '[:space:]')"
+    GCH_BRANCH="$(git branch --all --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))' | fzf | awk -F ' ' '{print $1}')"
     git checkout "$GCH_BRANCH"
     print -S "git checkout $GCH_BRANCH"
   }
