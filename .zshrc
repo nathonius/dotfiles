@@ -44,8 +44,14 @@ antigen bundle lukechilds/zsh-better-npm-completion
 antigen bundle sudo
 antigen bundle dirhistory
 antigen bundle lukechilds/zsh-nvm
+antigen bundle marlonrichert/zsh-hist@main
 
 antigen apply
+
+# Configure some zsh plugins
+if command -v zstyle &> /dev/null; then
+  zstyle ':hist:*' auto-format no
+fi
 
 # Oh My Posh
 if command -v oh-my-posh &> /dev/null; then
@@ -58,8 +64,15 @@ if command -v fzf &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
   gch() {
-    git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
+    GCH_BRANCH="$(git branch --all | fzf | tr -d '[:space:]')"
+    git checkout "$GCH_BRANCH"
+    print -S "git checkout $GCH_BRANCH"
   }
+fi
+
+# zoxide
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
 fi
 
 # pyenv
