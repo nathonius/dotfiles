@@ -36,3 +36,31 @@ matches:
         type: shell
         params:
           cmd: 'pyenv exec python "$CONFIG/scripts/fake.py"'
+  - trigger: ":company"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: 'pyenv exec python "$CONFIG/scripts/fake.py" company'
+  - trigger: ":email"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: 'pyenv exec python "$CONFIG/scripts/fake.py" email'
+  - trigger: ":vin"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: 'pyenv exec python "$CONFIG/scripts/fake.py" vin'
+  - trigger: ":ssn"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: 'pyenv exec python "$CONFIG/scripts/fake.py" ssn'

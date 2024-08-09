@@ -11,6 +11,7 @@ fi
 # Lazy load NVM to speed up init
 export NVM_COMPLETION=true
 
+alias c="clear"
 alias bco="better-commits"
 alias zshrc="code ~/.zshrc"
 alias dotfiles="code ~/.dotfiles"
@@ -75,6 +76,7 @@ fi
 # zoxide
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
+  alias j="z"
 fi
 
 # pyenv

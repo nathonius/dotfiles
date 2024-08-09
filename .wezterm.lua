@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local act = wezterm.action
 local config = wezterm.config_builder()
 
-config.color_scheme = 'Dracula'
+config.color_scheme = 'Catppuccin Frappe'
 
 -- Key bindings
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
