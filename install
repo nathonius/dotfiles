@@ -112,7 +112,7 @@ fi
 
 echo "scripts/wezterm.sh"
 echo "scripts/bat-theme.sh"
-echo "scripts/forgit.sh"
+echo "scripts/zsh-plugins.sh"
 echo "cp loopy.zsh-theme \$ZSH_CUSTOM/themes"
 echo "ln -s ${BASEDIR}/espanso \$(espanso path config)"
 
