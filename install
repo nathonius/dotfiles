@@ -74,6 +74,16 @@ cd "${BASEDIR}"
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive
 
+if [ -d "$ZSH" ]; then
+  echo "ZSH already set; skipping Oh My Zsh install"
+else
+  echo "Installing Oh My Zsh:"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+echo "Installing nvm:"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+
 # Remove existing zshrc if it's there
 rm ~/.zshrc || true
 
@@ -87,19 +97,23 @@ ENV_CONFIG="install.conf.yaml"
 echo "Setting git email to ${EMAIL}."
 git config --global user.email "${EMAIL}"
 
-echo "Recommend running the following commands:"
-echo "scripts/wezterm.sh"
 if [[ "${PLATFORM}" == "macos" ]]; then
-  echo "brew install autojump fd fzf 1password-cli wezterm jandedobbeleer/oh-my-posh/oh-my-posh"
+  echo "Recommend running the following commands:"
+  echo "brew install zoxide fd fzf 1password-cli wezterm bat bat-extras less git-delta"
   echo "brew install --cask font-meslo-lg-nerd-font"
 fi
 
-echo "ln -s ${BASEDIR}/espanso \$(espanso path config)"
 
 if [[ ! "${PLATFORM}" == "macos" ]]; then
-  echo "curl -s https://ohmyposh.dev/install.sh | bash -s"
-  echo "Recommend installing the following packages: fzf, fd, autojump, wezterm"
+  echo "Recommend installing the following packages: fzf, fd, wezterm, bat, git-delta"
+  echo "Recommend running the following commands:"
+  echo "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
 fi
+
+echo "scripts/wezterm.sh"
+echo "scripts/bat-theme.sh"
+echo "scripts/forgit.sh"
+echo "ln -s ${BASEDIR}/espanso \$(espanso path config)"
 
 if [[ $UBUNTU == true ]]; then
   echo "Recommend installing nala"
