@@ -113,7 +113,7 @@ fi
 echo "scripts/wezterm.sh"
 echo "scripts/bat-theme.sh"
 echo "scripts/zsh-plugins.sh"
-echo "cp loopy.zsh-theme \$ZSH_CUSTOM/themes"
+echo "cp loopy.zsh-theme ${ZSH_CUSTOM}/themes/loopy.zsh-theme"
 echo "ln -s ${BASEDIR}/espanso \$(espanso path config)"
 
 if [[ $UBUNTU == true ]]; then
