@@ -2,98 +2,100 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
     "background": "#282A36",
-    "selection": "#44475A",
-    "foreground": "#f8f8f2",
     "comment": "#6272A4",
     "cyan": "#8be9fd",
+    "foreground": "#f8f8f2",
     "green": "#50fa7b",
     "orange": "#ffb86c",
     "pink": "#ff79c6",
     "purple": "#bd93f9",
     "red": "#FF5555",
+    "selection": "#44475A",
     "yellow": "#f1fa8c"
+  },
+  "transient_prompt": {
+    "template": "> ",
+    "foreground": "p:green",
+    "background": "transparent"
   },
   "blocks": [
     {
+      "type": "prompt",
       "alignment": "left",
       "trailing_diamond": "\ue0b4",
       "segments": [
         {
-          "background": "p:background",
-          "foreground": "p:green",
-          "trailing_diamond": "<p:selection>\ue0bb</>",
           "properties": {
-            "style": "powerlevel",
-            "max_width": 60
+            "cache_duration": "none",
+            "max_width": 60,
+            "style": "powerlevel"
           },
-          "style": "diamond",
+          "trailing_diamond": "<p:selection>\ue0bb</>",
           "template": " {{ .Path }} ",
-          "type": "path"
+          "foreground": "p:green",
+          "background": "p:background",
+          "type": "path",
+          "style": "diamond"
         },
         {
-          "background": "p:background",
-          "foreground": "p:comment",
           "properties": {
             "branch_icon": "",
+            "cache_duration": "none",
             "fetch_stash_count": false,
             "fetch_status": true,
             "fetch_upstream_icon": false
           },
-          "style": "diamond",
           "template": " {{ .HEAD }}{{if or (gt .Ahead 0) (gt .Behind 0)}} {{ .BranchStatus }}{{end}}{{ if .Staging.Changed }}<p:yellow> {{.Staging.String}}</>{{ end }}{{ if and .Staging.Changed .Working.Changed}} |{{end}}{{ if .Working.Changed }}<p:orange> {{.Working.String}}</>{{end}}",
-          "type": "git"
+          "foreground": "p:comment",
+          "background": "p:background",
+          "type": "git",
+          "style": "diamond"
         }
-      ],
-      "type": "prompt"
+      ]
     },
     {
+      "type": "rprompt",
       "alignment": "left",
       "leading_diamond": "\ue0b6",
       "segments": [
         {
-          "type": "upgrade",
-          "style": "diamond",
+          "properties": {
+            "cache_duration": "none"
+          },
           "trailing_diamond": "<p:selection>\ue0bb</>",
-          "foreground": "p:green",
-          "background": "p:background"
-        },
-        {
+          "template": " \ue753 {{ .Full }} ",
+          "foreground": "p:pink",
+          "background": "p:background",
           "type": "angular",
-          "style": "diamond",
-          "trailing_diamond": "<p:selection>\ue0bb</>",
-          "foreground": "p:pink",
-          "background": "p:background",
-          "template": "  {{ .Full }} "
+          "style": "diamond"
         },
         {
-          "background": "p:background",
-          "foreground": "p:pink",
+          "properties": {
+            "cache_duration": "none"
+          },
           "trailing_diamond": "<p:selection>\ue0bb</>",
-          "style": "diamond",
           "template": "{{ if .Segments.Contains \"Angular\"}}{{else}} \ue718 {{ .Full }} {{end}}",
-          "type": "node"
+          "foreground": "p:pink",
+          "background": "p:background",
+          "type": "node",
+          "style": "diamond"
         },
         {
+          "properties": {
+            "always_enabled": true,
+            "cache_duration": "none"
+          },
+          "template": " \ue23a ",
+          "background": "p:background",
           "type": "status",
           "style": "diamond",
-          "background": "p:background",
           "foreground_templates": [
             "{{ if .Error }}p:red{{ else }}p:green{{ end }}"
-          ],
-          "template": "  ",
-          "properties": {
-            "always_enabled": true
-          }
+          ]
         }
-      ],
-      "type": "rprompt"
+      ]
     }
   ],
-  "transient_prompt": {
-    "background": "transparent",
-    "foreground": "p:green",
-    "template": "> "
-  },
-  "final_space": true,
-  "version": 2
+  "version": 3,
+  "final_space": true
 }

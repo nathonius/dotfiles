@@ -105,3 +105,12 @@ if command -v nala &> /dev/null; then
     fi
   }
 fi
+
+# alias cat to bat, if it's installed
+if command -v bat &> /dev/null; then
+  export BAT_THEME="Catppuccin Frappe"
+  export BAT_STYLE="numbers,changes,grid"
+  cat() {
+    command bat --theme="Catppuccin Frappe" -P "$@"
+  }
+fi

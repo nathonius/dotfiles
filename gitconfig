@@ -6,7 +6,7 @@
 	br = checkout -b
 	pushup = !git push -u origin $(git symbolic-ref --short HEAD)
 	rename-branch = branch -m
-	undo-file = checkout origin/master
+	undo-file = checkout origin/main
 	amend = commit --amend --no-edit
 	rollback = "!git reset @~${1:-1} #"
 	rb = "!git branch -r --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' --color=always | grep ${1:-'Nathan Smith'} | head #"
@@ -16,3 +16,5 @@
 [rerere]
 	enabled = true
 	autoupdate = true
+[init]
+	defaultBranch = main
