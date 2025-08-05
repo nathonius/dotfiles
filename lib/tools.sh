@@ -33,6 +33,12 @@ install_development_tools() {
         ["lorem-ipsum-cli"]=""
         ["better-commits"]=""
     )
+
+    declare -A zsh_plugins_info
+    zsh_plugins_info=(
+        ["forgit"]="Fancy git tools (requires fzf)"
+        ["zsh-hist"]="History manipulation (used for some git aliases)"
+    )
     
     # Core shell tools selection
     local core_tools=()
@@ -83,6 +89,38 @@ install_development_tools() {
     
     # Essential shell setup (install first so nvm is available for Node.js tools)
     install_shell_essentials
+
+    # zsh plugins selection
+    local zsh_plugins=(forgit zsh-hist)
+    local selected_zsh_plugins=()
+    
+    log_info "Select zsh plugins to install:"
+    echo
+    
+    local zsh_plugin_options=()
+    for tool in "${zsh_plugins[@]}"; do
+        if [[ "${zsh_plugins_info[$tool]}" ]]; then
+            zsh_plugin_options+=("$tool - ${zsh_plugins_info[$tool]}")
+        else
+            zsh_plugin_options+=("$tool")
+        fi
+    done
+    
+    show_multi_select_menu "Zsh plugins:" "${zsh_plugin_options[@]}"
+    local -a selected_zsh_plugin_indices
+    mapfile -t selected_zsh_plugin_indices < <(get_multiple_choices ${#zsh_plugin_options[@]})
+    
+    # Convert indices to selected tools
+    for index in "${selected_zsh_plugin_indices[@]}"; do
+        if [ "$index" -lt ${#zsh_plugins[@]} ]; then
+            selected_zsh_plugins+=("${zsh_plugins[$index]}")
+        fi
+    done
+    
+    # Install selected zsh plugins
+    if [ ${#selected_zsh_plugins[@]} -gt 0 ]; then
+        install_zsh_plugins "${selected_zsh_plugins[@]}"
+    fi
     
     # Node.js tools selection
     local node_tools=(typescript @angular/cli lorem-ipsum-cli better-commits)
@@ -159,6 +197,40 @@ install_core_tools() {
                     sudo apt update && sudo apt install -y nala
                 else
                     log_warn "nala only supported on Ubuntu"
+                fi
+                ;;
+            *)
+                log_warn "Unknown tool: $tool"
+                ;;
+        esac
+        
+        if [ $? -eq 0 ]; then
+            log_success "$tool installed successfully"
+        else
+            log_error "Failed to install $tool"
+        fi
+    done
+}
+
+install_zsh_plugins() {
+    local tools=("$@")
+    log_info "Installing zsh plugins: ${tools[*]}"
+        for tool in "${tools[@]}"; do
+        log_info "Installing $tool..."
+        
+        case "$tool" in
+            "forgit")
+                if [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/forgit" ]]; then
+                    log_info "forgit directory already exists, skipping"
+                else
+                    git clone https://github.com/wfxr/forgit.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/forgit
+                fi
+                ;;
+            "zsh-hist")
+                if [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-hist" ]]; then
+                    log_info "zsh-hist directory already exists, skipping"
+                else
+                    git clone https://github.com/marlonrichert/zsh-hist.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-hist
                 fi
                 ;;
             *)
