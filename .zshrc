@@ -198,12 +198,6 @@ if command_exists micro; then
     }
 fi
 
-# atuin
-. "$HOME/.atuin/bin/env"
-if command_exists atuin; then
-    eval "$(atuin init zsh)"
-fi
-
 # git-worktree-manager
 if command_exists git-worktree-manager; then
     alias gitwm="git-worktree-manager"
