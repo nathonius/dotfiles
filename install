@@ -110,6 +110,7 @@ if [[ ! "${PLATFORM}" == "macos" ]]; then
   echo "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
 fi
 
+echo "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash"
 echo "scripts/wezterm.sh"
 echo "scripts/bat-theme.sh"
 echo "scripts/zsh-plugins.sh"

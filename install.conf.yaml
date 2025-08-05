@@ -6,6 +6,7 @@
     ~/.better-commits.json: .better-commits.json
     ~/.wezterm.lua: .wezterm.lua
     ~/.oh-my-posh.json: .oh-my-posh.json
+    ~/.config/atuin/config.toml: atuin.config.toml
 
 - shell:
     - command: if [[ $SHELL != "/bin/zsh" ]]; then sudo chsh -s /bin/zsh `whoami`; fi

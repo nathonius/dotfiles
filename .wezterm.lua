@@ -23,6 +23,11 @@ config.keys = {
         mods = 'LEADER|CTRL',
         action = act.SendKey { key = 'a', mods = 'CTRL' },
     },
+    {
+        key = 'p',
+        mods = 'CMD|SHIFT',
+        action = act.ActivateCommandPalette
+    },
 }
 
 -- Mouse bindings

@@ -59,6 +59,10 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
+# Work MCP setup
+if [[ -f "$HOME/.mcp-credentials" ]]; then
+  source "$HOME/.mcp-credentials";
+fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -116,6 +120,10 @@ if command_exists zoxide; then
   eval "$(zoxide init zsh)"
   alias j="z"
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -180,4 +188,23 @@ if command_exists delta; then
     git config --global interactive.diffFilter 'delta --color-only'
     git config --global delta.navigate true
     git config --global merge.conflictStyle zdiff3
+fi
+
+# nano -> micro
+if command_exists micro; then
+    export MICRO_TRUECOLOR=1
+    nano() {
+        command micro "$@"
+    }
+fi
+
+# atuin
+. "$HOME/.atuin/bin/env"
+if command_exists atuin; then
+    eval "$(atuin init zsh)"
+fi
+
+# git-worktree-manager
+if command_exists git-worktree-manager; then
+    alias gitwm="git-worktree-manager"
 fi
