@@ -1,5 +1,10 @@
 [core]
 	editor = code --wait
+	pager = delta
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --dif $LOCAL $REMOTE
 [alias]
 	yeet = push
 	yoink = pull
@@ -9,7 +14,7 @@
 	undo-file = checkout origin/main
 	amend = commit --amend --no-edit
 	rollback = "!git reset @~${1:-1} #"
-	rb = "!git branch -r --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' --color=always | grep ${1:-'Nathan Smith'} | head #"
+	rb = "!git branch -r --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' --color=always | grep ${2:-'Nathan Smith'} | head -n ${1:-10} #"
 [user]
 	name = "Nathan Smith"
 	email = nathan@nathan-smith.org
@@ -18,3 +23,12 @@
 	autoupdate = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3
+    tool = code
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
